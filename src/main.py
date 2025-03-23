@@ -12,7 +12,7 @@ print("Firebase Admin SDK initialized!")
 print(app)
 
 print("Testing uploading a document to Firestore...")
-doc_ref = db.collection("users").document("alovelace")
+doc_ref = db.collection("ejemplos").document("alovelace")
 doc_ref.set({"first": "Ada", "last": "Lovelace", "born": 1815})
 
 print("Document uploaded successfully!")
