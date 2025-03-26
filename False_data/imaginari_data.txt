@@ -1,58 +1,47 @@
-Adrian Solis|25|Femenino|Heterosexual|CDMX|Edo. México|Sí, No, No, Sí, Sí|Depresión Mayor
-Beatriz Mendoza|34|Masculino|Homosexual|Jalisco|Jalisco|No, No, Sí, Sí, No|Trastorno de Ansiedad Generalizada
-Camila Mendoza|29|No binario|Bisexual|Nuevo León|CDMX|Sí, Sí, No, No, No|Sin diagnóstico
-Diego Fernandez|41|Femenino|Heterosexual|Veracruz|Veracruz|Sí, Sí, Sí, No, Sí|Trastorno de Pánico
-Felipe Navarro|37|Masculino|Heterosexual|Sonora|Baja California|No, No, No, No, No|Sin diagnóstico
-Eliana Torres|22|Femenino|Lesbiana|Puebla|CDMX|Sí, No, No, Sí, No|Trastorno de Estrés Postraumático
-Gabriela Suares|31|Masculino|Bisexual|Edo. México|Guerrero|Sí, Sí, No, No, Sí|Trastorno Obsesivo Compulsivo
-Hector Valenzuela|28|No binario|Heterosexual|Chihuahua|Chihuahua|No, No, Sí, Sí, No|Trastorno de Ansiedad Generalizada
-Ignacio Pérez|36|Femenino|Bisexual|Yucatán|Quintana Roo|Sí, No, Sí, No, No|Trastorno Depresivo Persistente
-Juliana Castro|42|Masculino|Heterosexual|CDMX|CDMX|Sí, Sí, Sí, Sí, Sí|Trastorno Bipolar I
-Kevin Ramirez|27|Femenino|Pansexual|Morelos|Morelos|No, No, No, Sí, Sí|Trastorno de Ansiedad Social
-Laura Dominguez|39|Masculino|Heterosexual|Tabasco|Campeche|Sí, Sí, No, No, No|Sin diagnóstico
-Martin Herrera|23|No binario|Asexual|Querétaro|Hidalgo|Sí, No, No, Sí, No|Trastorno Depresivo Mayor
-Natalia Vázques|45|Femenino|Heterosexual|Tamaulipas|Nuevo León|Sí, Sí, Sí, No, Sí|Trastorno de Estrés Postraumático
-Oscar Pineda|38|Masculino|Homosexual|Oaxaca|CDMX|No, No, Sí, Sí, Sí|Trastorno de Ansiedad Generalizada
-Patricia Leon|33|Femenino|Heterosexual|Guerrero|Michoacán|Sí, Sí, No, Sí, No|Trastorno de Pánico
-Ricardo Gusman|26|Masculino|Bisexual|Baja California|CDMX|Sí, No, No, No, No|Sin diagnóstico
-Sofia Miranda|30|No binario|Homosexual|Zacatecas|San Luis Potosí|Sí, Sí, Sí, Sí, No|Trastorno Obsesivo Compulsivo
-Tomas Albarez|50|Femenino|Heterosexual|Durango|Chihuahua|No, No, No, No, No|Sin diagnóstico
-Valeria Muño|44|Masculino|Pansexual|Colima|Jalisco|Sí, Sí, No, No, Sí|Trastorno Bipolar II
-Alejandro Ríos|28|Masculino|Heterosexual|CDMX|CDMX|No, No, Sí, Sí, No|Trastorno de Ansiedad Generalizada  
-Brenda Salazar|32|Femenino|Lesbiana|Jalisco|Michoacán|Sí, Sí, No, No, Sí|Trastorno Obsesivo Compulsivo  
-Carlos Ortega|39|No binario|Bisexual|Nuevo León|Tamaulipas|No, No, No, Sí, Sí|Sin diagnóstico  
-Daniela Flores|25|Femenino|Pansexual|Veracruz|CDMX|Sí, No, Sí, No, No|Trastorno Depresivo Mayor  
-Eduardo Mendez|41|Masculino|Heterosexual|Sonora|Chihuahua|No, No, No, No, No|Sin diagnóstico  
-Fernanda Ruiz|29|Femenino|Heterosexual|Puebla|CDMX|Sí, Sí, Sí, Sí, Sí|Trastorno Bipolar I  
-Guillermo Vargas|37|Masculino|Homosexual|Edo. México|CDMX|No, No, No, Sí, No|Trastorno de Ansiedad Social  
-Helena Figueroa|33|Femenino|Bisexual|Chihuahua|Sonora|Sí, Sí, Sí, No, Sí|Trastorno de Pánico  
-Ismael Galindo|26|Masculino|Asexual|Yucatán|Quintana Roo|No, No, Sí, Sí, No|Trastorno de Ansiedad Generalizada  
-Jimena Castillo|45|Femenino|Heterosexual|CDMX|Edo. México|Sí, No, No, Sí, Sí|Depresión Mayor  
-Karla Nuñez|38|Femenino|Homosexual|Morelos|Guerrero|Sí, Sí, No, No, Sí|Trastorno de Estrés Postraumático  
-Luis Ramírez|30|Masculino|Heterosexual|Tabasco|Campeche|No, No, No, Sí, No|Sin diagnóstico  
-Marina Ocampo|31|Femenino|Pansexual|Querétaro|Hidalgo|Sí, No, No, Sí, No|Trastorno Obsesivo Compulsivo  
-Nicolas De la Torre|44|Masculino|Bisexual|Tamaulipas|Nuevo León|No, No, Sí, Sí, Sí|Trastorno de Ansiedad Generalizada  
-Olivia Sánchez|36|Femenino|Heterosexual|Oaxaca|CDMX|Sí, Sí, Sí, No, Sí|Trastorno de Pánico  
-Pablo Espinoza|27|Masculino|Homosexual|Guerrero|Michoacán|No, No, No, No, No|Sin diagnóstico  
-Quetzalli Medina|39|No binario|Asexual|Baja California|CDMX|Sí, Sí, Sí, Sí, No|Trastorno Bipolar II  
-Raúl Jiménez|24|Masculino|Heterosexual|Zacatecas|San Luis Potosí|No, No, No, Sí, Sí|Trastorno de Estrés Postraumático  
-Sandra López|50|Femenino|Heterosexual|Durango|Chihuahua|Sí, No, No, No, No|Sin diagnóstico  
-Tadeo Gutiérrez|43|Masculino|Pansexual|Colima|Jalisco|Sí, Sí, No, No, Sí|Trastorno Bipolar I  
-Uriel Castro|35|Masculino|Bisexual|CDMX|Edo. México|No, No, Sí, Sí, No|Trastorno de Ansiedad Generalizada  
-Vanessa Aguirre|28|Femenino|Lesbiana|Jalisco|Michoacán|Sí, Sí, No, No, Sí|Trastorno de Estrés Postraumático  
-William Pacheco|41|Masculino|Heterosexual|Nuevo León|Tamaulipas|No, No, No, Sí, Sí|Sin diagnóstico  
-Ximena Reyes|30|Femenino|Heterosexual|Veracruz|CDMX|Sí, No, Sí, No, No|Trastorno Depresivo Mayor  
-Yahir Treviño|38|Masculino|Homosexual|Sonora|Chihuahua|No, No, No, No, No|Sin diagnóstico  
-Zaira Pérez|29|Femenino|Pansexual|Puebla|CDMX|Sí, Sí, Sí, Sí, Sí|Trastorno Bipolar I  
-Abraham Delgado|37|Masculino|Heterosexual|Edo. México|CDMX|No, No, No, Sí, No|Trastorno de Ansiedad Social  
-Bianca Morales|33|Femenino|Bisexual|Chihuahua|Sonora|Sí, Sí, Sí, No, Sí|Trastorno de Pánico  
-Cristian Valdés|26|Masculino|Asexual|Yucatán|Quintana Roo|No, No, Sí, Sí, No|Trastorno de Ansiedad Generalizada  
-Diana Solís|45|Femenino|Heterosexual|CDMX|Edo. México|Sí, No, No, Sí, Sí|Depresión Mayor  
-Emiliano Torres|38|Masculino|Homosexual|Morelos|Guerrero|Sí, Sí, No, No, Sí|Trastorno de Estrés Postraumático  
-Fabiola Esquivel|30|Femenino|Pansexual|Tabasco|Campeche|No, No, No, Sí, No|Sin diagnóstico  
-Gerardo Ortiz|31|Masculino|Bisexual|Querétaro|Hidalgo|Sí, No, No, Sí, No|Trastorno Obsesivo Compulsivo  
-Hilda Carmona|44|Femenino|Heterosexual|Tamaulipas|Nuevo León|No, No, Sí, Sí, Sí|Trastorno de Ansiedad Generalizada  
-Iván Romero|36|Masculino|Heterosexual|Oaxaca|CDMX|Sí, Sí, Sí, No, Sí|Trastorno de Pánico  
-Jennifer Alvarado|27|Femenino|Homosexual|Guerrero|Michoacán|No, No, No, No, No|Sin diagnóstico  
-Kevin Soto|39|Masculino|Pansexual|Baja California|CDMX|Sí, Sí, Sí, Sí, No|Trastorno Bipolar II  
-Leonor Guzmán|50|Femenino|Heterosexual|Durango|Chihuahua|Sí, No, No, No, No|Sin diagnóstico  
+Adrian Solis|25|Femenino|Heterosexual|CDMX|Edo. México|Si|No|No|Si|Si|No|No|No|No|No|No|No|No|No|No|No
+Beatriz Mendoza|34|Masculino|Homosexual|Jalisco|Jalisco|No|No|Si|Si|No|No|No|No|No|No|No|No|No|No|Si|No
+Camila Mendoza|29|No binario|Bisexual|Nuevo León|CDMX|Si|Si|No|No|No|No|No|No|No|No|No|No|No|No|No|No
+Diego Fernandez|41|Femenino|Heterosexual|Veracruz|Veracruz|Si|Si|Si|No|Si|No|No|No|No|No|No|No|No|No|No|No
+Felipe Navarro|37|Masculino|Heterosexual|Sonora|Baja California|No|No|No|No|No|No|No|No|No|No|No|No|No|No|No|No
+Eliana Torres|22|Femenino|Lesbiana|Puebla|CDMX|Si|No|No|Si|No|No|No|No|No|No|No|No|No|No|No|No
+Gabriela Suares|31|Masculino|Bisexual|Edo. México|Guerrero|Si|Si|No|No|Si|No|No|No|No|No|No|No|No|No|No|No
+Hector Valenzuela|28|No binario|Heterosexual|Chihuahua|Chihuahua|No|No|Si|Si|No|No|No|No|No|No|No|No|No|No|Si|No
+Ignacio Pérez|36|Femenino|Bisexual|Yucatán|Quintana Roo|Si|No|Si|No|No|No|No|No|No|No|No|No|No|No|No|No
+Juliana Castro|42|Masculino|Heterosexual|CDMX|CDMX|Si|Si|Si|Si|Si|No|No|No|No|No|No|No|No|No|No|No
+Kevin Ramirez|27|Femenino|Pansexual|Morelos|Morelos|No|No|No|Si|Si|No|No|No|No|No|No|No|No|No|No|No
+Laura Dominguez|39|Masculino|Heterosexual|Tabasco|Campeche|Si|Si|No|No|No|No|No|No|No|No|No|No|No|No|No|No
+Martin Herrera|23|No binario|Asexual|Querétaro|Hidalgo|Si|No|No|Si|No|No|No|No|No|No|No|No|No|No|No|No
+Natalia Vázques|45|Femenino|Heterosexual|Tamaulipas|Nuevo León|Si|Si|Si|No|Si|No|No|No|No|No|No|No|No|No|No|No
+Oscar Pineda|38|Masculino|Homosexual|Oaxaca|CDMX|No|No|Si|Si|Si|No|No|No|No|No|No|No|No|No|No|No
+Patricia Leon|33|Femenino|Heterosexual|Guerrero|Michoacán|Si|Si|No|Si|No|No|No|No|No|No|No|No|No|No|No|No
+Ricardo Gusman|26|Masculino|Bisexual|Baja California|CDMX|Si|No|No|No|No|No|No|No|No|No|No|No|No|No|No|No
+Sofia Miranda|30|No binario|Homosexual|Zacatecas|San Luis PotoSi|Si|Si|Si|Si|No|No|No|No|No|No|No|No|No|No|No|No
+Alejandro Ríos|24|Masculino|Heterosexual|CDMX|CDMX|No|No|No|Si|No|No|No|No|No|No|No|No|No|No|No|No
+Brenda López|29|Femenino|Lesbiana|Jalisco|CDMX|Si|No|Si|No|No|No|No|No|No|No|No|No|No|No|No|No
+Carlos Méndez|35|Masculino|Heterosexual|Nuevo León|Coahuila|Si|Si|No|Si|Si|No|No|No|No|No|No|No|No|No|No|No
+Daniela Ruiz|27|Femenino|Bisexual|Veracruz|Edo. México|No|No|Si|No|Si|No|No|No|No|No|No|No|No|No|No|No
+Emilio Vargas|41|Masculino|Homosexual|Sonora|Baja California|Si|Si|Si|No|No|No|No|No|No|No|No|No|No|No|No|No
+Fernanda García|31|Femenino|Heterosexual|Puebla|Tlaxcala|Si|No|No|Si|Si|No|No|No|No|No|No|No|No|No|No|No
+Gonzalo Castro|39|Masculino|Heterosexual|Edo. México|Guerrero|No|No|Si|No|Si|No|No|No|No|No|No|No|No|No|Si|No
+Héctor Morales|22|Masculino|Pansexual|Chihuahua|Durango|Si|Si|No|Si|No|No|No|No|No|No|No|No|No|No|No|No
+Isabella Flores|45|Femenino|Heterosexual|Yucatán|Campeche|Si|Si|Si|No|No|No|No|No|No|No|No|No|No|No|No|No
+Javier Sánchez|26|Masculino|Heterosexual|CDMX|Morelos|No|No|No|Si|No|No|No|No|No|No|No|No|No|No|No|No
+Karla Medina|34|Femenino|Bisexual|Querétaro|Hidalgo|Si|No|Si|Si|Si|No|No|No|No|No|No|No|No|No|No|No
+Leonardo Torres|28|Masculino|Heterosexual|Tabasco|Campeche|No|No|No|No|No|No|No|No|No|No|No|No|No|No|No|No
+Mariana Velázquez|32|Femenino|Heterosexual|Oaxaca|CDMX|Si|Si|No|Si|Si|No|No|No|No|No|No|No|No|No|No|No
+Nicolás Pineda|37|Masculino|Homosexual|Guerrero|Michoacán|Si|No|No|No|No|No|No|No|No|No|No|No|No|No|No|No
+Olga Jiménez|29|Femenino|Heterosexual|Baja California|Sonora|Si|Si|Si|Si|No|No|No|No|No|No|No|No|No|No|No|No
+Pablo Herrera|40|Masculino|Heterosexual|Zacatecas|San Luis PotoSi|No|No|Si|No|Si|No|No|No|No|No|No|No|No|No|No|No
+Queralt Domínguez|23|Femenino|Pansexual|Michoacán|Colima|Si|No|No|Si|No|No|No|No|No|No|No|No|No|No|No|No
+Rafael Guzmán|30|Masculino|Bisexual|CDMX|Edo. México|Si|No|Si|No|No|No|No|No|No|No|No|No|No|No|No|No
+Samantha Orozco|36|Femenino|Heterosexual|Nuevo León|Coahuila|No|No|No|Si|Si|No|No|No|No|No|No|No|No|No|No|No
+Tomás Valdez|42|Masculino|Heterosexual|Veracruz|Tamaulipas|Si|Si|Si|No|No|No|No|No|No|No|No|No|No|No|No|No
+Uriel Navarro|25|Masculino|Heterosexual|Puebla|CDMX|No|No|No|Si|No|No|No|No|No|No|No|No|No|No|No|No
+Valeria Ramírez|28|Femenino|Lesbiana|Sonora|Baja California|Si|Si|Si|No|No|No|No|No|No|No|No|No|No|No|No|No
+Walter Carrillo|39|Masculino|Heterosexual|Yucatán|Quintana Roo|No|No|No|Si|Si|No|No|No|No|No|No|No|No|No|No|No
+Ximena Flores|31|Femenino|Heterosexual|Edo. México|Guerrero|Si|No|No|No|No|No|No|No|No|No|No|No|No|No|No|No
+Yahir Esquivel|27|Masculino|Bisexual|Chihuahua|Durango|Si|Si|Si|Si|No|No|No|No|No|No|No|No|No|No|No|No
+Zoe Castillo|35|Femenino|Heterosexual|Querétaro|Hidalgo|No|No|Si|No|Si|No|No|No|No|No|No|No|No|No|No|No
+Alfonso Rodríguez|45|Masculino|Heterosexual|CDMX|CDMX|Si|Si|No|Si|Si|No|No|No|No|No|No|No|No|No|No|No
+Beatriz Salazar|26|Femenino|Asexual|Jalisco|CDMX|Si|No|Si|No|No|No|No|No|No|No|No|No|No|No|No|No
+Cristian Montoya|38|Masculino|Heterosexual|Nuevo León|Coahuila|No|No|Si|Si|No|No|No|No|No|No|No|No|No|No|No|No

@@ -2,8 +2,10 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.worksheet.table import Table, TableStyleInfo
 
 def crear_tabla(ws, type_table, table_name):
+    # ws es la hoja en la que se esta trabajando
     # Definir el rango de la tabla en base al tamaño de los datos
-    rango_tabla = f"A1:G{ws.max_row}"  
+    max_col = ws.cell(row=1, column=ws.max_column).column_letter
+    rango_tabla = f"A1:{max_col}{ws.max_row}" 
 
     # Crear la tabla
     tabla = Table(displayName=table_name, ref=rango_tabla)
