@@ -33,13 +33,17 @@ def crear_tabla_principal():
 
     # Definir encabezados de la tabla
     encabezados = ["Nombre", "Edad", "Sexo", "Preferencia sexual", "Estado de origen", 
-                   "Estado de residencia", "Episodio depresivo mayor", "Trastorno distímico", 
+                   "Estado de residencia"]
+    
+    trastornos = ["Episodio depresivo mayor", "Trastorno distímico", 
                    "Riesgo de suicidio", "Episodio (hipo)maníaco", "Trastorno de angustia", 
                    "Agorafobia", "Fobia social", "Trastorno obsesivo-compulsivo", 
                    "Estado por estrés postraumático", "Abuso y dependencia de alcohol", 
                    "Trastornos asociados al uso de sustancias psicoactivas no alcohólicas", 
                    "Trastornos psicóticos", "Anorexia nerviosa", "Bulimia nerviosa", 
                    "Trastorno de ansiedad generalizada", "Trastorno antisocial de la personalidad"]
+    
+    encabezado += trastornos
 
     # Índices de los trastornos 
     indice_trastornos = list(range(7, len(encabezados) + 1))
