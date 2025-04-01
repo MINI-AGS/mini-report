@@ -43,7 +43,7 @@ def crear_tabla_principal():
                    "Trastornos psicóticos", "Anorexia nerviosa", "Bulimia nerviosa", 
                    "Trastorno de ansiedad generalizada", "Trastorno antisocial de la personalidad"]
     
-    encabezado += trastornos
+    encabezados += trastornos
 
     # Índices de los trastornos 
     indice_trastornos = list(range(7, len(encabezados) + 1))
