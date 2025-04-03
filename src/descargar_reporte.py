@@ -2,7 +2,7 @@ import http.server
 import socketserver
 import os
 
-DIRECTORY = "./"  # Directorio donde se encuentra el archivo
+DIRECTORY = "./"
 FILENAME = "reporte_principal.xlsx"
 PORT = 8000
 
@@ -15,8 +15,14 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_header("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
                 self.send_header("Content-Disposition", f"attachment; filename={FILENAME}")
                 self.end_headers()
+                
+                # Enviar archivo
                 with open(file_path, "rb") as file:
                     self.wfile.write(file.read())
+
+                # Eliminar archivo después de enviarlo
+                os.remove(file_path)
+                print(f"Archivo {FILENAME} eliminado después de la descarga.")
             else:
                 self.send_response(404)
                 self.end_headers()
@@ -26,7 +32,7 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(b"Ruta no encontrada.")
 
-if __name__ == "__main__":
+def iniciar_servidor():
     with socketserver.TCPServer(("", PORT), CustomHandler) as httpd:
         print(f"Servidor iniciado en http://localhost:{PORT}/download")
         httpd.serve_forever()
