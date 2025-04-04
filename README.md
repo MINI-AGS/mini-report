@@ -43,18 +43,32 @@ pip freeze > requirements.txt
 python3 -m venv venv
 ```
 
-3. Run the following command in the terminal to install the required packages
+3. Activate the virtual environment
+
+- For Windows
+
+```bash
+venv\Scripts\activate
+```
+
+- For MacOS/Linux
+
+```bash
+source venv/bin/activate
+```
+
+4. Run the following command in the terminal to install the required packages
 
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Please contact Yeyo for the .env file with the required credentials
+5. Please contact Yeyo for the .env file with the required credentials
 
-5. Once you have the .env file, run the following command in the terminal
+6. Once you have the .env file, run the following command in the terminal
 
 ```bash
 python main.py
 ```
 
-6. The code will run and generate the report
+7. The code will run and generate the report
