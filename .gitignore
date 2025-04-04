@@ -175,3 +175,5 @@ cython_debug/
 
 # firebase json 
 firebase-admin-sdk.json
+
+.DS_Store
