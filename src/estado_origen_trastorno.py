@@ -124,7 +124,7 @@ def reporte_distribucion_estado_origen_trastorno():
     bar_chart.title = "Promedio de trastornos por Estado de origen"
     bar_chart.y_axis.title = "Promedio de personas que padecen"
     bar_chart.x_axis.title = "Estado de origen"
-    bar_chart.height = 20
+    bar_chart.height = 40
     bar_chart.width = 50
 
     # Seleccionar los datos
@@ -156,7 +156,7 @@ def reporte_distribucion_estado_origen_trastorno():
     radar_chart.style = 13
     radar_chart.y_axis.title = "Promedio"
     radar_chart.x_axis.title = "Trastornos"
-    radar_chart.height = 20
+    radar_chart.height = 40
     radar_chart.width = 25
 
     # Seleccionar los datos
