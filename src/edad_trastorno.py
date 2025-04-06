@@ -155,8 +155,8 @@ def reporte_distribucion_edades_trastornos():
     bar_chart.title = "Promedio de trastornos por grupo de edades"
     bar_chart.y_axis.title = "Promedio de personas que padecen"
     bar_chart.x_axis.title = "Grupo de Edad"
-    bar_chart.height = 40
-    bar_chart.width = 34
+    bar_chart.height = 25
+    bar_chart.width = 40
 
     data = Reference(
         ws_reporte, 
@@ -185,8 +185,8 @@ def reporte_distribucion_edades_trastornos():
     line_chart.title = "Tendencia de promedio de trastornos por grupo de edad"
     line_chart.y_axis.title = "Promedio de personas que padecen"
     line_chart.x_axis.title = "Grupo de Edad"
-    line_chart.height = 40
-    line_chart.width = 34
+    line_chart.height = 25
+    line_chart.width = 40
 
     for col in range(3, len(encabezados_trastornos) + 3):
         data_series = Reference(
@@ -207,7 +207,7 @@ def reporte_distribucion_edades_trastornos():
     line_chart.set_categories(categories)
 
     # Agregar la grafica de lineas a la hoja del reporte
-    ws_reporte.add_chart(line_chart, "N19")
+    ws_reporte.add_chart(line_chart, "O19")
 
     # Guardar archivo
     output_path = "reporte_principal.xlsx"
