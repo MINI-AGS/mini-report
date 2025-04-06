@@ -1,38 +1,21 @@
-import http.server
-import socketserver
 import os
+import platform
+import shutil
+import subprocess
 
-DIRECTORY = "./"
 FILENAME = "reporte_principal.xlsx"
-PORT = 8000
+DEST_DIR = os.path.expanduser("~/Downloads")  # or any path you want
+SOURCE_PATH = os.path.join(".", FILENAME)
+DEST_PATH = os.path.join(DEST_DIR, FILENAME)
 
-class CustomHandler(http.server.SimpleHTTPRequestHandler):
-    def do_GET(self):
-        if self.path == "/download":
-            file_path = os.path.join(DIRECTORY, FILENAME)
-            if os.path.exists(file_path):
-                self.send_response(200)
-                self.send_header("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-                self.send_header("Content-Disposition", f"attachment; filename={FILENAME}")
-                self.end_headers()
-                
-                # Enviar archivo
-                with open(file_path, "rb") as file:
-                    self.wfile.write(file.read())
 
-                # Eliminar archivo después de enviarlo
-                os.remove(file_path)
-                print(f"Archivo {FILENAME} eliminado después de la descarga.")
-            else:
-                self.send_response(404)
-                self.end_headers()
-                self.wfile.write(b"Error: Archivo no encontrado.")
-        else:
-            self.send_response(404)
-            self.end_headers()
-            self.wfile.write(b"Ruta no encontrada.")
+def auto_download_file():
+    if os.path.exists(SOURCE_PATH):
+        shutil.copy(SOURCE_PATH, DEST_PATH)
+        print(f"Reporte guardado en {DEST_PATH}")
+    else:
+        print("Error: Ocurrio un error al guardar el reporte.")
 
-def iniciar_servidor():
-    with socketserver.TCPServer(("", PORT), CustomHandler) as httpd:
-        print(f"Servidor iniciado en http://localhost:{PORT}/download")
-        httpd.serve_forever()
+
+if __name__ == "__main__":
+    auto_download_file()
