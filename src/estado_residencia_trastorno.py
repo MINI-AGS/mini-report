@@ -125,7 +125,7 @@ def reporte_distribucion_estado_residencia_trastorno():
     bar_chart.y_axis.title = "Promedio de personas que padecen"
     bar_chart.x_axis.title = "Estado de Residencia"
     bar_chart.height = 40
-    bar_chart.width = 50
+    bar_chart.width = 60
 
     # Seleccionar los datos
     data = Reference(
