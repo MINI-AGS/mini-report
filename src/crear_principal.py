@@ -22,6 +22,7 @@ def crear_tabla_principal():
         print(f"Error al leer el archivo: {e}")
         return
 
+    # Obtener la informacion relevante de cada persona 
     lineas = []
     for persona in data:
         fila = [
@@ -66,29 +67,55 @@ def crear_tabla_principal():
         ]
         lineas.append(fila)
 
-    # Crear un nuevo libro de trabajo
+    # Crear el libro del reporte y la primera hoja
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "Reporte de Encuesta"
 
     # Definir encabezados de la tabla
     encabezados = [
-        "Nombre", "Edad", "Sexo", "Preferencia sexual", "Estado de origen", "Estado de residencia",
+        "Nombre", 
+        "Edad", 
+        "Sexo", 
+        "Preferencia sexual", 
+        "Estado de origen", 
+        "Estado de residencia",
     ]
 
-    trastornos = ["Episodio depresivo mayor actual", "Episodio depresivo mayor recidivante", 
-        "Episodio depresivo mayor con síntomas melancólicos actual", "Trastorno distímico actual", 
-        "Riesgo de suicidio", "Riesgo", "Episodio hipomaníaco", "Periodo de episodio hipomaníaco", 
-        "Episodio maníaco", "Periodo de episodio maníaco", "Trastorno de angustia de por vida", 
-        "Periodo de trastorno de angustia", "Crisis actual con síntomas limitados", "Periodo de crisis", 
-        "Trastorno de angustia actual", "Trastorno de angustia sin agorafobia actual", 
-        "Trastorno de angustia con agorafobia actual", "Agorafobia actual sin historial de trastorno de angustia", 
-        "Fobia social actual", "Estado por estrés postraumático actual", "Dependencia de alcohol actual", 
-        "Abuso de alcohol actual", "Dependencia de sustancias actual", "Abuso de sustancias actual", 
-        "Trastorno psicótico actual", "Trastorno psicótico de por vida", 
-        "Trastorno del estado de ánimo con síntomas psicóticos actual", "Anorexia nerviosa actual", 
-        "Bulimia nerviosa actual", "Anorexia nerviosa tipo compulsivo/purgativo actual", 
-        "Trastorno de ansiedad generalizada actual", "Trastorno antisocial de la personalidad de por vida"]
+    # Definir los trastornos para los encabezados
+    trastornos = [
+                "Episodio depresivo mayor actual", 
+                "Episodio depresivo mayor recidivante", 
+                "Episodio depresivo mayor con síntomas melancólicos actual", 
+                "Trastorno distímico actual", 
+                "Riesgo de suicidio", "Riesgo", 
+                "Episodio hipomaníaco", 
+                "Periodo de episodio hipomaníaco", 
+                "Episodio maníaco", 
+                "Periodo de episodio maníaco", 
+                "Trastorno de angustia de por vida", 
+                "Periodo de trastorno de angustia", 
+                "Crisis actual con síntomas limitados", 
+                "Periodo de crisis", 
+                "Trastorno de angustia actual", 
+                "Trastorno de angustia sin agorafobia actual", 
+                "Trastorno de angustia con agorafobia actual", 
+                "Agorafobia actual sin historial de trastorno de angustia", 
+                "Fobia social actual", 
+                "Estado por estrés postraumático actual", 
+                "Dependencia de alcohol actual", 
+                "Abuso de alcohol actual", 
+                "Dependencia de sustancias actual", 
+                "Abuso de sustancias actual", 
+                "Trastorno psicótico actual", 
+                "Trastorno psicótico de por vida", 
+                "Trastorno del estado de ánimo con síntomas psicóticos actual", 
+                "Anorexia nerviosa actual", 
+                "Bulimia nerviosa actual", 
+                "Anorexia nerviosa tipo compulsivo/purgativo actual", 
+                "Trastorno de ansiedad generalizada actual", 
+                "Trastorno antisocial de la personalidad de por vida"
+            ]
 
     encabezados += trastornos
 
@@ -102,7 +129,7 @@ def crear_tabla_principal():
     thin_border = Border(left=Side(style="medium"), right=Side(style="medium"),
                          top=Side(style="medium"), bottom=Side(style="medium"))
 
-    # Agregar encabezados
+    # Agregar encabezados con un estilo
     for col_num, encabezado in enumerate(encabezados, 1):
         celda = ws.cell(row=1, column=col_num, value=encabezado)
         celda.font = header_font
@@ -121,7 +148,7 @@ def crear_tabla_principal():
         # Definir color en función para darle al usuario en funcion de la cantidad de trastornos que padece
         if cantidad_si > 0:
             rojo = 255  
-            naranja = max(0, 255 - (cantidad_si * 25))  # Disminuye progresivamente de 255 a 0
+            naranja = max(0, 255 - (cantidad_si * 25))  
 
             color_hex = f"{rojo:02X}{naranja:02X}00"  
             fill_color = PatternFill(start_color=color_hex, fill_type="solid")
@@ -129,6 +156,8 @@ def crear_tabla_principal():
             # No se pone color a usuarios que no sufren ningun trastorno
             fill_color = None
 
+
+        # Convierte el texto a un "Si", se puede cambiar si es necesario pero incurrira en cambios en todos los scripts
         for col_num, dato in enumerate(fila, 1):
             valor = "Si" if dato == encabezados[col_num - 1] else dato
             celda = ws.cell(row=row_num, column=col_num, value=valor)
@@ -137,7 +166,10 @@ def crear_tabla_principal():
             # Aplicar color de acuerdo a la cantidad de trastornos al nombre del entrevistado
             if fill_color and col_num == 1:  
                 celda.fill = fill_color
+
             # Se pintan de amarillos los "Si", para identificar más facilmente los trastornos padecidos
+            # Se pita la casilla de riesgo de suicidio en relacion del peligro de suicidio de la persona
+            # Tambien se pinta actual y pasado para identificar el padecimiento de ciertos trastornos
             if valor == "Si":
                 celda.fill = PatternFill(start_color="FFD700", fill_type="solid") 
             if valor == "Bajo":
