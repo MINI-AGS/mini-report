@@ -16,7 +16,7 @@ def reporte_distribucion_trastornos():
     ws_reporte = wb.create_sheet("Distribucion_trastornos")
 
     # Obtener los encabezados y los datos
-    encabezados = [ws.cell(row=1, column=col).value for col in range(7, ws.max_column + 1)]  
+    encabezados = [ws.cell(row=1, column=col).value for col in range(7, ws.max_column + 1) if ws.cell(row=1, column=col).value]  
     conteo_trastornos = defaultdict(int)
 
     # Contar la cantidad de veces que cada trastorno aparece con "Si"
@@ -40,8 +40,7 @@ def reporte_distribucion_trastornos():
                          top=Side(style="medium"), bottom=Side(style="medium"))
 
     # Aplicar estilos a los encabezados
-    for col_num, encabezado in enumerate(["Trastorno", "Cantidad"], 1):
-        celda = ws_reporte.cell(row=1, column=col_num, value=encabezado)
+    for celda in ws_reporte[1]:
         celda.font = header_font
         celda.fill = header_fill
         celda.alignment = header_alignment
@@ -71,6 +70,8 @@ def reporte_distribucion_trastornos():
     bar_chart.x_axis.title = "Trastornos"
     bar_chart.y_axis.title = "Cantidad"
     bar_chart.legend = None
+    bar_chart.height = 10
+    bar_chart.width = 30
 
     data = Reference(ws_reporte, min_col=2, min_row=1, max_row=len(conteo_trastornos) + 1)
     categories = Reference(ws_reporte, min_col=1, min_row=2, max_row=len(conteo_trastornos) + 1)
@@ -83,6 +84,8 @@ def reporte_distribucion_trastornos():
     # Crear gráfico de pastel
     pie_chart = PieChart()
     pie_chart.title = "Distribución de Trastornos"
+    pie_chart.height = 10
+    pie_chart.width = 30
 
     pie_chart.add_data(data, titles_from_data=True)
     pie_chart.set_categories(categories)
@@ -97,9 +100,9 @@ def reporte_distribucion_trastornos():
     # Guardar los cambios en el archivo Excel
     output_path = "reporte_principal.xlsx"
     try:
-        wb.save(output_path)
+        #wb.save(output_path)
         wb.close()
-        print(f"Distribucion trastornos guardado en: '{output_path}'")
+        print(f"Página principal guardada en: '{output_path}'")
     except Exception as e:
         print(f"Error al guardar el archivo: {e}")
 

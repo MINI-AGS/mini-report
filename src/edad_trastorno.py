@@ -95,6 +95,8 @@ def reporte_distribucion_edades_trastornos():
     bar_chart.title = "Distribución de Edades"
     bar_chart.x_axis.title = "Rangos de Edad"
     bar_chart.y_axis.title = "Cantidad"
+    bar_chart.width = 22
+    bar_chart.height = 12
 
     data = Reference(ws_reporte, min_col=2, min_row=1, max_row=len(rangos_edad) + 1)
     categories = Reference(ws_reporte, min_col=1, min_row=2, max_row=len(rangos_edad) + 1)
@@ -110,7 +112,9 @@ def reporte_distribucion_edades_trastornos():
     pie_chart.set_categories(categories)
     pie_chart.dataLabels = DataLabelList()
     pie_chart.dataLabels.showPercent = True
-    ws_reporte.add_chart(pie_chart, "B35")
+    pie_chart.width = 22
+    pie_chart.height = 12
+    ws_reporte.add_chart(pie_chart, "B42")
 
     #################### Tabla y grafico de promedio de aflicciones por edad  #################### 
 
@@ -149,10 +153,10 @@ def reporte_distribucion_edades_trastornos():
     # Gráfico de Barras Apiladas - Promedio de Trastornos por Grupo de Edad
     bar_chart = BarChart()
     bar_chart.title = "Promedio de trastornos por grupo de edades"
-    bar_chart.y_axis.title = "Promedio"
+    bar_chart.y_axis.title = "Promedio de personas que padecen"
     bar_chart.x_axis.title = "Grupo de Edad"
-    bar_chart.height = 20
-    bar_chart.width = 30
+    bar_chart.height = 40
+    bar_chart.width = 34
 
     data = Reference(
         ws_reporte, 
@@ -179,10 +183,10 @@ def reporte_distribucion_edades_trastornos():
     # Gráfico de Líneas - Promedio de Trastornos por Edad
     line_chart = LineChart()
     line_chart.title = "Tendencia de promedio de trastornos por grupo de edad"
-    line_chart.y_axis.title = "Promedio"
+    line_chart.y_axis.title = "Promedio de personas que padecen"
     line_chart.x_axis.title = "Grupo de Edad"
-    line_chart.height = 20
-    line_chart.width = 30
+    line_chart.height = 40
+    line_chart.width = 34
 
     for col in range(3, len(encabezados_trastornos) + 3):
         data_series = Reference(
@@ -203,14 +207,14 @@ def reporte_distribucion_edades_trastornos():
     line_chart.set_categories(categories)
 
     # Agregar la grafica de lineas a la hoja del reporte
-    ws_reporte.add_chart(line_chart, "M19")
+    ws_reporte.add_chart(line_chart, "N19")
 
     # Guardar archivo
     output_path = "reporte_principal.xlsx"
     try:
         wb.save(output_path)
         wb.close()
-        print(f"Distribucion edad - trastornos guardada en: '{output_path}'")
+        print(f"Reporte principal guardado en: '{output_path}'")
     except Exception as e:
         print(f"Error al guardar el archivo: {e}")
 
