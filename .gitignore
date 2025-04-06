@@ -177,3 +177,10 @@ cython_debug/
 firebase-admin-sdk.json
 
 .DS_Store
+
+# Excel files
+*.xlsx
+*.xls 
+*.xlsm 
+*.xlsb 
+*.csv
