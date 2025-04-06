@@ -8,8 +8,6 @@ from form_tabla import crear_tabla  # Importa la función desde el archivo exter
 # La tabla generado aqui se utilizara para generar el resto de reportes, para no tener que estar 
 # llamando a la base de datos en cada reporte.
 def crear_tabla_principal():
-    # La siguiente seccion se remplazara por el llamado y lectura de la base de datos.
-    ############################################################################################
     path = "false_data/jtest_data.json"
 
     if not os.path.exists(path):
