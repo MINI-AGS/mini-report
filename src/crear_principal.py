@@ -1,6 +1,18 @@
 import openpyxl, json, os
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from form_tabla import crear_tabla  # Importa la función desde el archivo externo
+from datetime import datetime
+
+# Función para calcular la edad de las personas con su fecha de nacimiento
+def calcular_edad(fecha_nacimiento_str):
+    nacimiento = datetime.strptime(fecha_nacimiento_str, "%d-%m-%Y")
+    hoy = datetime.today()
+
+    edad = hoy.year - nacimiento.year
+    if (hoy.month, hoy.day) < (nacimiento.month, nacimiento.day):
+        edad -= 1
+
+    return edad
 
 # Crear la tabla principal, donde se muestran los resultados de la encuesta y sus datos relevantes.
 # No se incluyeron las respuestas de cada pregunta.
@@ -23,13 +35,18 @@ def crear_tabla_principal(path):
     # Obtener los datos de cadda relevantes
     lineas = []
     for persona in data:
+        fecha_nacimiento = persona.get("birthdate")
+        try:
+            edad = calcular_edad(fecha_nacimiento)
+        except ValueError:
+            edad = ""
         fila = [
-            persona.get("nombre", ""),
-            persona.get("edad", ""),
-            persona.get("genero", ""),
-            persona.get("orientacion", ""),
-            persona.get("estado_nacimiento", ""),
-            persona.get("estado_residencia", ""),
+            persona.get("name", ""),
+            edad,
+            persona.get("gender", ""),
+            persona.get("sexualPreference", ""),
+            persona.get("stateOrigin", ""),
+            persona.get("stateResidence", ""),
             persona.get("diagnosticA1", ""),
             persona.get("diagnosticA2", ""),
             persona.get("diagnosticA3", ""),
