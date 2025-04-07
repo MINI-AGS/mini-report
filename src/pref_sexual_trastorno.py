@@ -3,20 +3,20 @@ from abrir_principal import cargar_principal
 from form_tabla import crear_tabla  
 from collections import defaultdict
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
-from openpyxl.chart import BarChart, PieChart, Reference, RadarChart
+from openpyxl.chart import BarChart, PieChart, Reference, LineChart
 from openpyxl.chart.label import DataLabelList
 
-def reporte_distribucion_estado_origen_trastorno():
+def reporte_distribucion_trastornos_pref_sexual():
     wb, ws = cargar_principal()
     if not wb or not ws:
         print("Error: No se pudo cargar el archivo principal.")
         return
 
-    ws_reporte = wb.create_sheet("Distribucion_Estado_origen")
+    ws_reporte = wb.create_sheet("Distribucion_pref_sexual")
 
-    # Diccionario para contar los estados y trastornos
-    estados_registrados = defaultdict(int)
-    conteo_trastornos_por_estado = defaultdict(lambda: defaultdict(int))
+    # Diccionario para contar las preferencias sexuales y trastornos
+    pref_sexuals_registradas = defaultdict(int)
+    conteo_trastornos_por_pref_sexual = defaultdict(lambda: defaultdict(int))
 
     # Obtener los encabezados de trastornos
     encabezados_trastornos = [ws.cell(row=1, column=col).value for col in range(7, ws.max_column + 1) if ws.cell(row=1, column=col).value]
@@ -24,20 +24,20 @@ def reporte_distribucion_estado_origen_trastorno():
     # Recorrer las filas para extraer datos
     for row in range(2, ws.max_row + 1):
         try:
-            estado = ws.cell(row=row, column=5).value  # Estado de origen (Columna 5)
+            pref_sexual = ws.cell(row=row, column=4).value  # pref_sexual de origen (Columna 4)
         except (TypeError, ValueError):
             continue
 
-        estados_registrados[estado] += 1
+        pref_sexuals_registradas[pref_sexual] += 1
 
         for col, trastorno in enumerate(encabezados_trastornos, start=7):
             if ws.cell(row=row, column=col).value and ws.cell(row=row, column=col).value.strip() == "Si":
-                conteo_trastornos_por_estado[estado][trastorno] += 1
+                conteo_trastornos_por_pref_sexual[pref_sexual][trastorno] += 1
 
     #################### Creación de tabla y gráficos ####################
 
     # Encabezados
-    ws_reporte.append(["Estado de origen", "Cantidad de Personas"] + encabezados_trastornos)
+    ws_reporte.append(["pref_sexual", "Cantidad de Personas"] + encabezados_trastornos)
 
     # Estilos para encabezados
     header_font = Font(bold=True, color="FFFFFF")
@@ -54,8 +54,8 @@ def reporte_distribucion_estado_origen_trastorno():
         celda.border = thin_border
 
     # Agregar datos de distribución
-    for row_num, (estado, cantidad) in enumerate(estados_registrados.items(), 2):
-        fila = [estado, cantidad] + [conteo_trastornos_por_estado[estado][t] for t in encabezados_trastornos]
+    for row_num, (pref_sexual, cantidad) in enumerate(pref_sexuals_registradas.items(), 2):
+        fila = [pref_sexual, cantidad] + [conteo_trastornos_por_pref_sexual[pref_sexual][t] for t in encabezados_trastornos]
         ws_reporte.append(fila)
 
         for col_num, dato in enumerate(fila, 1):
@@ -71,23 +71,23 @@ def reporte_distribucion_estado_origen_trastorno():
 
     # Gráfico de Barras
     bar_chart = BarChart()
-    bar_chart.title = "Distribución de Personas por Estado de origen"
-    bar_chart.x_axis.title = "Estado de origen"
+    bar_chart.title = "Distribución de Personas por preferencia sexual"
+    bar_chart.x_axis.title = "preferencia sexual"
     bar_chart.y_axis.title = "Cantidad de Personas"
     bar_chart.width = 22
     bar_chart.height = 12
 
-    data = Reference(ws_reporte, min_col=2, min_row=1, max_row=len(estados_registrados) + 1)
-    categories = Reference(ws_reporte, min_col=1, min_row=2, max_row=len(estados_registrados) + 1)
+    data = Reference(ws_reporte, min_col=2, min_row=1, max_row=len(pref_sexuals_registradas) + 1)
+    categories = Reference(ws_reporte, min_col=1, min_row=2, max_row=len(pref_sexuals_registradas) + 1)
 
     bar_chart.add_data(data, titles_from_data=True)
     bar_chart.set_categories(categories)
-    fila_inicio = 2*(len(estados_registrados) + 3) 
+    fila_inicio = 2*(len(pref_sexuals_registradas) + 3) 
     ws_reporte.add_chart(bar_chart, f"B{fila_inicio}")
 
     # Gráfico de Pastel
     pie_chart = PieChart()
-    pie_chart.title = "Distribución de Personas por Estado de origen"
+    pie_chart.title = "Distribución de Personas por preferencia sexual"
     pie_chart.add_data(data, titles_from_data=True)
     pie_chart.set_categories(categories)
     pie_chart.dataLabels = DataLabelList()
@@ -102,7 +102,7 @@ def reporte_distribucion_estado_origen_trastorno():
     ws_reporte.append([""] * (len(encabezados_trastornos) + 2))
 
     # Encabezados
-    ws_reporte.append(["Estado de origen", "Cantidad de Personas"] + [f"Promedio {t}" for t in encabezados_trastornos])
+    ws_reporte.append(["preferencia sexual", "Cantidad de Personas"] + [f"Promedio {t}" for t in encabezados_trastornos])
 
     # Aplicar estilos a los encabezados
     for col in range(1, len(encabezados_trastornos) + 3):
@@ -113,21 +113,21 @@ def reporte_distribucion_estado_origen_trastorno():
         celda.border = thin_border
     
     # Llenar la tabla con los promedios y aplicar estilos basicos
-    for row_num, (estado, cantidad) in enumerate(estados_registrados.items(), ws_reporte.max_row + 1):
-        ws_reporte.append([estado, cantidad] + [conteo_trastornos_por_estado[estado][t] / cantidad if cantidad != 0 else 0 for t in encabezados_trastornos])
+    for row_num, (pref_sexual, cantidad) in enumerate(pref_sexuals_registradas.items(), ws_reporte.max_row + 1):
+        ws_reporte.append([pref_sexual, cantidad] + [conteo_trastornos_por_pref_sexual[pref_sexual][t] / cantidad if cantidad != 0 else 0 for t in encabezados_trastornos])
         for col in range(1, len(encabezados_trastornos) + 3):
             celda = ws_reporte.cell(row=row_num, column=col)
             celda.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
             celda.border = thin_border
 
     # Aplicar formato de tabla
-    crear_tabla(ws_reporte, type_table="TableStyleMedium2", table_name="Tabla_Estado_origen")
+    crear_tabla(ws_reporte, type_table="TableStyleMedium2", table_name="Tabla_pref_sexual_origen")
 
     # Gráfico de Barras Apiladas - Promedio de Trastornos por Sexo
     bar_chart = BarChart()
-    bar_chart.title = "Promedio de trastornos por Estado de origen"
+    bar_chart.title = "Promedio de trastornos por preferencia sexual"
     bar_chart.y_axis.title = "Promedio de personas que padecen"
-    bar_chart.x_axis.title = "Estado de origen"
+    bar_chart.x_axis.title = "preferencia sexual"
     bar_chart.height = 25
     bar_chart.width = 50
 
@@ -135,16 +135,16 @@ def reporte_distribucion_estado_origen_trastorno():
     data = Reference(
         ws_reporte,
         min_col=3,
-        min_row=len(estados_registrados) + 3,
-        max_row=len(estados_registrados) + len(estados_registrados) + 3,
+        min_row=len(pref_sexuals_registradas) + 3,
+        max_row=len(pref_sexuals_registradas) + len(pref_sexuals_registradas) + 3,
         max_col=len(encabezados_trastornos) + 2
     )
 
     categories = Reference(
         ws_reporte,
         min_col=1,
-        min_row=len(estados_registrados) + 4,
-        max_row=len(estados_registrados) + len(estados_registrados) + 3
+        min_row=len(pref_sexuals_registradas) + 4,
+        max_row=len(pref_sexuals_registradas) + len(pref_sexuals_registradas) + 3
     )
 
     # Agregar los datos al grafico de barras
@@ -154,46 +154,47 @@ def reporte_distribucion_estado_origen_trastorno():
     # Agregar el grafico a la hoja del reporte
     ws_reporte.add_chart(bar_chart, f"O{fila_inicio}")
 
-    # Gráfico de Radar - Promedio de Trastornos por Sexo
-    radar_chart = RadarChart()
-    radar_chart.title = "Distribución de Promedio de Trastornos por Estado de origen"
-    radar_chart.style = 13
-    radar_chart.y_axis.title = "Promedio"
-    radar_chart.x_axis.title = "Trastornos"
-    radar_chart.height = 25
-    radar_chart.width = 40
+    # Crear gráfico de líneas en lugar de radar
+    line_chart = LineChart()
+    line_chart.title = "Distribución de Promedio de Trastornos por preferencia sexual"
+    line_chart.style = 13
+    line_chart.y_axis.title = "Promedio"
+    line_chart.x_axis.title = "Trastornos"
+    line_chart.height = 25  
+    line_chart.width = 40
 
     # Seleccionar los datos
     data = Reference(
         ws_reporte,
         min_col=3,
-        min_row=len(estados_registrados) + 3,
-        max_row=len(estados_registrados) + len(estados_registrados) + 3,
+        min_row=len(pref_sexuals_registradas) + 3,
+        max_row=len(pref_sexuals_registradas) + len(pref_sexuals_registradas) + 3,
         max_col=len(encabezados_trastornos) + 2
     )
 
     categories = Reference(
         ws_reporte,
         min_col=1,
-        min_row=len(estados_registrados) + 4,
-        max_row=len(estados_registrados) + len(estados_registrados) + 3
+        min_row=len(pref_sexuals_registradas) + 4,
+        max_row=len(pref_sexuals_registradas) + len(pref_sexuals_registradas) + 3
     )
 
+    line_chart.add_data(data, titles_from_data=True)
+    line_chart.set_categories(categories)
+    line_chart.legend.position = "t"  # Posición de la leyenda: top
 
-    radar_chart.add_data(data, titles_from_data=True)
-    radar_chart.set_categories(categories)
+    # Agregar la gráfica de líneas al reporte
+    ws_reporte.add_chart(line_chart, f"F{fila_inicio}")
 
-    # Agregar la gráfica de radar al reporte
-    ws_reporte.add_chart(radar_chart, f"F{fila_inicio}")
 
     # Guardar el archivo Excel
     output_path = "reporte_principal.xlsx"
     try:
         wb.save(output_path)
         wb.close()
-        print(f"Reporte estado origen - trstorno guardado en: '{output_path}'")
+        print(f"Reporte pref_sexual - trstorno guardado en: '{output_path}'")
     except Exception as e:
         print(f"Error al guardar el archivo: {e}")
 
 if __name__ == "__main__":
-    reporte_distribucion_estado_origen_trastorno()
+    reporte_distribucion_trastornos_pref_sexual()

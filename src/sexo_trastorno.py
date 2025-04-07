@@ -107,7 +107,7 @@ def reporte_distribucion_sexo_trastornos():
     pie_chart.dataLabels.showPercent = True
     pie_chart.width = 22
     pie_chart.height = 12
-    ws_reporte.add_chart(pie_chart, "B35")
+    ws_reporte.add_chart(pie_chart, "B36")
 
     #################### Tabla y grafico de promedio de aflicciones por edad  #################### 
 
@@ -148,8 +148,8 @@ def reporte_distribucion_sexo_trastornos():
     bar_chart.title = "Promedio de trastornos por Sexoes"
     bar_chart.y_axis.title = "Promedio de personas que padecen"
     bar_chart.x_axis.title = "Sexo"
-    bar_chart.height = 40
-    bar_chart.width = 34
+    bar_chart.height = 30
+    bar_chart.width = 40
 
     data = Reference(
         ws_reporte, 
@@ -181,8 +181,8 @@ def reporte_distribucion_sexo_trastornos():
     radar_chart.style = 13
     radar_chart.y_axis.title = "Promedio"
     radar_chart.x_axis.title = "Trastornos"
-    radar_chart.height = 40
-    radar_chart.width = 34
+    radar_chart.height = 30
+    radar_chart.width = 40
 
     # Seleccionar los datos
     data = Reference(
@@ -204,7 +204,7 @@ def reporte_distribucion_sexo_trastornos():
     radar_chart.set_categories(categories)
 
     # Agregar la gráfica de radar al reporte
-    ws_reporte.add_chart(radar_chart, "M12")
+    ws_reporte.add_chart(radar_chart, "O12")
 
 
     # Guardar archivo

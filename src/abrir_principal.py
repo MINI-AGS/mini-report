@@ -1,6 +1,6 @@
 import openpyxl
 
-# Función para cargar eo archivo principal generado de "crear_principal.py"
+# Función para cargar el archivo principal generado de "crear_principal.py"
 def cargar_principal():
     try:
         wb = openpyxl.load_workbook("reporte_principal.xlsx")
@@ -11,4 +11,5 @@ def cargar_principal():
     ws = wb.active
     ws.title = "Reporte de Encuesta"
 
+    # Se retorna el libro y hoja principal donde se encuentra la información.
     return wb, ws

@@ -74,6 +74,8 @@ def reporte_distribucion_estado_residencia_trastorno():
     bar_chart.title = "Distribución de Personas por Estado de Residencia"
     bar_chart.x_axis.title = "Estado de Residencia"
     bar_chart.y_axis.title = "Cantidad de Personas"
+    bar_chart.width = 22
+    bar_chart.height = 12
 
     data = Reference(ws_reporte, min_col=2, min_row=1, max_row=len(estados_registrados) + 1)
     categories = Reference(ws_reporte, min_col=1, min_row=2, max_row=len(estados_registrados) + 1)
@@ -90,7 +92,9 @@ def reporte_distribucion_estado_residencia_trastorno():
     pie_chart.set_categories(categories)
     pie_chart.dataLabels = DataLabelList()
     pie_chart.dataLabels.showPercent = True
-    ws_reporte.add_chart(pie_chart, f"B{fila_inicio + 16}")
+    pie_chart.width = 22
+    pie_chart.height = 12
+    ws_reporte.add_chart(pie_chart, f"B{fila_inicio + 23}")
 
     #################### Tabla y grafico de promedio de aflicciones por edad  #################### 
 
@@ -124,7 +128,7 @@ def reporte_distribucion_estado_residencia_trastorno():
     bar_chart.title = "Promedio de trastornos por Estado de residencia"
     bar_chart.y_axis.title = "Promedio de personas que padecen"
     bar_chart.x_axis.title = "Estado de Residencia"
-    bar_chart.height = 40
+    bar_chart.height = 25
     bar_chart.width = 50
 
     # Seleccionar los datos
@@ -148,7 +152,7 @@ def reporte_distribucion_estado_residencia_trastorno():
     bar_chart.set_categories(categories)
 
     # Agregar el grafico a la hoja del reporte
-    ws_reporte.add_chart(bar_chart, f"H{fila_inicio}")
+    ws_reporte.add_chart(bar_chart, f"O{fila_inicio}")
 
     # Gráfico de Radar - Promedio de Trastornos por Sexo
     radar_chart = RadarChart()
@@ -156,8 +160,8 @@ def reporte_distribucion_estado_residencia_trastorno():
     radar_chart.style = 13
     radar_chart.y_axis.title = "Promedio"
     radar_chart.x_axis.title = "Trastornos"
-    radar_chart.height = 40
-    radar_chart.width = 25
+    radar_chart.height = 25
+    radar_chart.width = 40
 
     # Seleccionar los datos
     data = Reference(
@@ -180,7 +184,7 @@ def reporte_distribucion_estado_residencia_trastorno():
     radar_chart.set_categories(categories)
 
     # Agregar la gráfica de radar al reporte
-    ws_reporte.add_chart(radar_chart, f"B{fila_inicio + 32}")
+    ws_reporte.add_chart(radar_chart, f"F{fila_inicio}")
 
     # Guardar el archivo Excel
     output_path = "reporte_principal.xlsx"

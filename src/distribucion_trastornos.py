@@ -100,7 +100,7 @@ def reporte_distribucion_trastornos():
     # Guardar los cambios en el archivo Excel
     output_path = "reporte_principal.xlsx"
     try:
-        #wb.save(output_path)
+        wb.save(output_path)
         wb.close()
         print(f"Página principal guardada en: '{output_path}'")
     except Exception as e:

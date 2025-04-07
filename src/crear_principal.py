@@ -1,14 +1,12 @@
-import openpyxl, json
+import openpyxl, json, os
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
-import os
 from form_tabla import crear_tabla  # Importa la función desde el archivo externo
 
 # Crear la tabla principal, donde se muestran los resultados de la encuesta y sus datos relevantes.
 # No se incluyeron las respuestas de cada pregunta.
 # La tabla generado aqui se utilizara para generar el resto de reportes, para no tener que estar 
 # llamando a la base de datos en cada reporte.
-def crear_tabla_principal():
-    path = "false_data/jtest_data.json"
+def crear_tabla_principal(path):
 
     if not os.path.exists(path):
         print("Error: El archivo no existe.")
@@ -22,6 +20,7 @@ def crear_tabla_principal():
         print(f"Error al leer el archivo: {e}")
         return
 
+    # Obtener los datos de cada relevantes
     lineas = []
     for persona in data:
         fila = [
@@ -73,22 +72,43 @@ def crear_tabla_principal():
 
     # Definir encabezados de la tabla
     encabezados = [
-        "Nombre", "Edad", "Sexo", "Preferencia sexual", "Estado de origen", "Estado de residencia",
+        "Nombre", 
+        "Edad", 
+        "Sexo", 
+        "Preferencia sexual", 
+        "Estado de origen", 
+        "Estado de residencia",
     ]
 
-    trastornos = ["Episodio depresivo mayor actual", "Episodio depresivo mayor recidivante", 
-        "Episodio depresivo mayor con síntomas melancólicos actual", "Trastorno distímico actual", 
-        "Riesgo de suicidio", "Riesgo", "Episodio hipomaníaco", "Periodo de episodio hipomaníaco", 
-        "Episodio maníaco", "Periodo de episodio maníaco", "Trastorno de angustia de por vida", 
-        "Periodo de trastorno de angustia", "Crisis actual con síntomas limitados", "Periodo de crisis", 
-        "Trastorno de angustia actual", "Trastorno de angustia sin agorafobia actual", 
-        "Trastorno de angustia con agorafobia actual", "Agorafobia actual sin historial de trastorno de angustia", 
-        "Fobia social actual", "Estado por estrés postraumático actual", "Dependencia de alcohol actual", 
-        "Abuso de alcohol actual", "Dependencia de sustancias actual", "Abuso de sustancias actual", 
-        "Trastorno psicótico actual", "Trastorno psicótico de por vida", 
-        "Trastorno del estado de ánimo con síntomas psicóticos actual", "Anorexia nerviosa actual", 
-        "Bulimia nerviosa actual", "Anorexia nerviosa tipo compulsivo/purgativo actual", 
-        "Trastorno de ansiedad generalizada actual", "Trastorno antisocial de la personalidad de por vida"]
+    trastornos = [
+        "Episodio depresivo mayor actual", 
+        "Episodio depresivo mayor recidivante", 
+        "Episodio depresivo mayor con síntomas melancólicos actual", 
+        "Trastorno distímico actual", 
+        "Riesgo de suicidio", "Riesgo", 
+        "Episodio hipomaníaco", "Periodo de episodio hipomaníaco", 
+        "Episodio maníaco", "Periodo de episodio maníaco", 
+        "Trastorno de angustia de por vida", "Periodo de trastorno de angustia", 
+        "Crisis actual con síntomas limitados", "Periodo de crisis", 
+        "Trastorno de angustia actual", 
+        "Trastorno de angustia sin agorafobia actual", 
+        "Trastorno de angustia con agorafobia actual", 
+        "Agorafobia actual sin historial de trastorno de angustia", 
+        "Fobia social actual", 
+        "Estado por estrés postraumático actual", 
+        "Dependencia de alcohol actual", 
+        "Abuso de alcohol actual", 
+        "Dependencia de sustancias actual", 
+        "Abuso de sustancias actual", 
+        "Trastorno psicótico actual", 
+        "Trastorno psicótico de por vida", 
+        "Trastorno del estado de ánimo con síntomas psicóticos actual", 
+        "Anorexia nerviosa actual", 
+        "Bulimia nerviosa actual", 
+        "Anorexia nerviosa tipo compulsivo/purgativo actual", 
+        "Trastorno de ansiedad generalizada actual", 
+        "Trastorno antisocial de la personalidad de por vida"
+    ]
 
     encabezados += trastornos
 
@@ -162,7 +182,6 @@ def crear_tabla_principal():
 
     # Aplicar formato de tabla 
     crear_tabla(ws, type_table="TableStyleLight11", table_name="Tabla_general")
-
     # Guardar el archivo Excel 
     output_path = "reporte_principal.xlsx"
     try:
