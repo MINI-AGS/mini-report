@@ -20,7 +20,7 @@ def crear_tabla_principal(path):
         print(f"Error al leer el archivo: {e}")
         return
 
-    # Obtener los datos de cadda relevantes
+    # Obtener los datos de cada relevantes
     lineas = []
     for persona in data:
         fila = [
