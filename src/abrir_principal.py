@@ -11,5 +11,5 @@ def cargar_principal():
     ws = wb.active
     ws.title = "Reporte de Encuesta"
 
-    # Se regtorna el libro y hoja principal donde se encuentra la información.
+    # Se retorna el libro y hoja principal donde se encuentra la información.
     return wb, ws
