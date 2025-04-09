@@ -5,11 +5,11 @@ from edad_trastorno import reporte_distribucion_edades_trastornos
 from estado_origen_trastorno import reporte_distribucion_estado_origen_trastorno
 from estado_residencia_trastorno import reporte_distribucion_estado_residencia_trastorno
 from factores_en_trastornos import reporte_caracteristicas_asociadas
-from get_data import get_firebase_data
+from get_test_data import get_test_data
 from sexo_trastorno import reporte_distribucion_sexo_trastornos
 
 if __name__ == "__main__":
-    data = get_firebase_data()
+    data = get_test_data("false_data/jtest_data.json")
     crear_tabla_principal(data)
     reporte_distribucion_edades_trastornos()
     reporte_distribucion_sexo_trastornos()
