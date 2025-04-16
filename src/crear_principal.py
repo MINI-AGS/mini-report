@@ -153,7 +153,7 @@ def crear_tabla_principal(path="false_data/jtest_data.json"):
             fila += [""] * (len(encabezados) - len(fila))  # En caso de no haber dato se rellena con un vacio
         
         # Contar cantidad de trastornos del entrevistado actual
-        cantidad_si = sum(1 for i in indice_trastornos if i - 1 < len(fila) and fila[i - 1].strip().lower() != "no")
+        cantidad_si = sum(1 for i in indice_trastornos if i - 1 < len(fila) and fila[i - 1].strip().lower() == "si")
         
         # Definir color en función para darle al usuario en funcion de la cantidad de trastornos que padece
         if cantidad_si > 0:
