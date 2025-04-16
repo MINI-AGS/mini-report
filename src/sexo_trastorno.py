@@ -212,7 +212,7 @@ def reporte_distribucion_sexo_trastornos():
     try:
         wb.save(output_path)
         wb.close()
-        print(f"Distribucion sexo - trastorno guardado en: '{output_path}'")
+        print(f"Reporte sexo - trastorno guardado en: '{output_path}'")
     except Exception as e:
         print(f"Error al guardar el archivo: {e}")
 

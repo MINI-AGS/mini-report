@@ -146,7 +146,7 @@ def reporte_caracteristicas_asociadas():
     try:
         wb.save(output_path)
         wb.close()
-        print(f"Página caracteristicas más comunes guardada en: '{output_path}'")
+        print(f"Reporte caracteristicas más comunes guardada en: '{output_path}'")
     except Exception as e:
         print(f"Error al guardar el archivo: {e}")
 

@@ -102,7 +102,7 @@ def reporte_distribucion_trastornos():
     try:
         wb.save(output_path)
         wb.close()
-        print(f"Página principal guardada en: '{output_path}'")
+        print(f"Reporte distribucion - trastornos guardada en: '{output_path}'")
     except Exception as e:
         print(f"Error al guardar el archivo: {e}")
 

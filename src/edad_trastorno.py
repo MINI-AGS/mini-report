@@ -214,7 +214,7 @@ def reporte_distribucion_edades_trastornos():
     try:
         wb.save(output_path)
         wb.close()
-        print(f"Reporte principal guardado en: '{output_path}'")
+        print(f"Reporte edad-trastornos guardado en: '{output_path}'")
     except Exception as e:
         print(f"Error al guardar el archivo: {e}")
 
