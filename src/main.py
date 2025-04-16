@@ -1,3 +1,6 @@
+import os
+import sys
+
 import descargar_reporte
 from crear_principal import crear_tabla_principal
 from distribucion_trastornos import reporte_distribucion_trastornos
@@ -8,8 +11,16 @@ from factores_en_trastornos import reporte_caracteristicas_asociadas
 from get_data import get_firebase_data
 from sexo_trastorno import reporte_distribucion_sexo_trastornos
 
+
+def resource_path(relative_path):
+    """Get absolute path to resource (for PyInstaller)"""
+    base_path = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
+
+
 if __name__ == "__main__":
-    data = get_firebase_data()
+    path = resource_path("firebase-admin-sdk.json")
+    data = get_firebase_data(path)
     crear_tabla_principal(data)
     reporte_distribucion_edades_trastornos()
     reporte_distribucion_sexo_trastornos()
