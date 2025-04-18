@@ -184,3 +184,4 @@ firebase-admin-sdk.json
 *.xlsm 
 *.xlsb 
 *.csv
+*.json
