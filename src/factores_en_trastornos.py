@@ -38,6 +38,12 @@ def reporte_caracteristicas_asociadas():
                 if valor:
                     conteo_factores[nombre][valor] += 1
 
+    # Si no se encontraron factores asociados, eliminar la hoja y finalizar
+    if not any(conteo_factores.values()):  # Verifica si todas las características están vacías
+        wb.remove(ws_reporte)
+        print("No se encontraron factores asociados a trastornos. La hoja ha sido eliminada.")
+        return
+
     # Encabezados
     ws_reporte.append(["Característica", "Valor", "Cantidad de Personas con Trastornos"])
 

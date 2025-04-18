@@ -63,8 +63,8 @@ def crear_tabla_principal(data):
             persona.get("diagnosticI1", ""),
             persona.get("diagnosticJ1", ""),
             persona.get("diagnosticJ2", ""),
-            persona.get("diagnosticK1", ""),
             persona.get("diagnosticK2", ""),
+            persona.get("diagnosticK3", ""),
             persona.get("diagnosticL1", ""),
             persona.get("diagnosticL2", ""),
             persona.get("diagnosticL3", ""),
@@ -158,12 +158,7 @@ def crear_tabla_principal(data):
             )  # En caso de no haber dato se rellena con un vacio
 
         # Contar cantidad de trastornos del entrevistado actual
-        cantidad_si = sum(
-            1
-            for i in indice_trastornos
-            if i - 1 < len(fila) and fila[i - 1].strip() != ""
-        )
-
+        cantidad_si = sum(1 for i in indice_trastornos if i - 1 < len(fila) and fila[i - 1].strip().lower() == "si")
         # Definir color en función para darle al usuario en funcion de la cantidad de trastornos que padece
         if cantidad_si > 0:
             rojo = 255
@@ -178,28 +173,25 @@ def crear_tabla_principal(data):
             fill_color = None
 
         for col_num, dato in enumerate(fila, 1):
-            valor = "Si" if dato == encabezados[col_num - 1] else dato
-            celda = ws.cell(row=row_num, column=col_num, value=valor)
-            celda.alignment = Alignment(
-                horizontal="center", vertical="center", wrap_text=True
-            )
+            celda = ws.cell(row=row_num, column=col_num, value=dato)
+            celda.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
             celda.border = thin_border
             # Aplicar color de acuerdo a la cantidad de trastornos al nombre del entrevistado
             if fill_color and col_num == 1:
                 celda.fill = fill_color
             # Se pintan de amarillos los "Si", para identificar más facilmente los trastornos padecidos
-            if valor == "Si":
+            if dato == "Si":
+                celda.fill = PatternFill(start_color="FFD700", fill_type="solid") 
+            if dato == "Bajo":
                 celda.fill = PatternFill(start_color="FFD700", fill_type="solid")
-            if valor == "Bajo":
-                celda.fill = PatternFill(start_color="FFD700", fill_type="solid")
-            if valor == "Moderado":
+            if dato == "Moderado":
                 celda.fill = PatternFill(start_color="FF8000", fill_type="solid")
-            if valor == "Alto":
+            if dato == "Alto":
                 celda.fill = PatternFill(start_color="FF0000", fill_type="solid")
-            if valor == "actual":
+            if dato == "actual":
                 celda.fill = PatternFill(start_color="FF0000", fill_type="solid")
-            if valor == "pasado":
-                celda.fill = PatternFill(start_color="272F7A", fill_type="solid")
+            if dato == "pasado":
+                celda.fill = PatternFill(start_color="409ad6", fill_type="solid")
 
     # Ajustar el ancho de las columnas
     for col in range(1, len(encabezados) + 1):

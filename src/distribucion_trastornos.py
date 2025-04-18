@@ -25,6 +25,12 @@ def reporte_distribucion_trastornos():
             if ws.cell(row=row, column=col).value == "Si":
                 conteo_trastornos[trastorno] += 1
 
+    # Si no hay trastornos, eliminar la hoja y finalizar
+    if not conteo_trastornos:
+        wb.remove(ws_reporte)  # Eliminar la hoja si no hay trastornos
+        print("No se encontraron trastornos. La hoja ha sido eliminada.")
+        return
+
     # Escribir la tabla en la hoja de reporte
     ws_reporte.append(["Trastorno", "Cantidad"])
     for trastorno, cantidad in conteo_trastornos.items():
