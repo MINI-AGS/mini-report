@@ -4,8 +4,6 @@
 
 The build of the project is done using the `pyinstaller` package. Note that before building the project, you need to have the virtual environment activated and the required packages installed.
 
-````bash
-
 The build is done using the following command depending on the operating system:
 
 1. For Windows
