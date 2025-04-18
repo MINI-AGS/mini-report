@@ -1,13 +1,16 @@
+from collections import defaultdict
+
+from openpyxl.chart import BarChart, PieChart, Reference
+from openpyxl.chart.label import DataLabelList
+from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
+
 from abrir_principal import cargar_principal
 from form_tabla import crear_tabla
-from collections import defaultdict
-from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
-from openpyxl.chart import BarChart, Reference, PieChart
-from openpyxl.chart.label import DataLabelList
 
-def reporte_caracteristicas_asociadas():
-    wb, ws = cargar_principal()
+
+def reporte_caracteristicas_asociadas(filename):
+    wb, ws = cargar_principal(filename)
     if not wb:
         return
 
@@ -31,7 +34,7 @@ def reporte_caracteristicas_asociadas():
             if ws.cell(row=row, column=col).value == "Si":
                 tiene_trastorno = True
                 break
-        
+
         if tiene_trastorno:
             for nombre, col in caracteristicas.items():
                 valor = ws.cell(row=row, column=col).value
@@ -39,13 +42,19 @@ def reporte_caracteristicas_asociadas():
                     conteo_factores[nombre][valor] += 1
 
     # Si no se encontraron factores asociados, eliminar la hoja y finalizar
-    if not any(conteo_factores.values()):  # Verifica si todas las características están vacías
+    if not any(
+        conteo_factores.values()
+    ):  # Verifica si todas las características están vacías
         wb.remove(ws_reporte)
-        print("No se encontraron factores asociados a trastornos. La hoja ha sido eliminada.")
+        print(
+            "No se encontraron factores asociados a trastornos. La hoja ha sido eliminada."
+        )
         return
 
     # Encabezados
-    ws_reporte.append(["Característica", "Valor", "Cantidad de Personas con Trastornos"])
+    ws_reporte.append(
+        ["Característica", "Valor", "Cantidad de Personas con Trastornos"]
+    )
 
     for caracteristica, valores in conteo_factores.items():
         for valor, cantidad in valores.items():
@@ -55,8 +64,12 @@ def reporte_caracteristicas_asociadas():
     header_font = Font(bold=True, color="FFFFFF")
     header_fill = PatternFill(start_color="4F81BD", fill_type="solid")
     header_alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
-    thin_border = Border(left=Side(style="medium"), right=Side(style="medium"),
-                         top=Side(style="medium"), bottom=Side(style="medium"))
+    thin_border = Border(
+        left=Side(style="medium"),
+        right=Side(style="medium"),
+        top=Side(style="medium"),
+        bottom=Side(style="medium"),
+    )
 
     # Aplicar estilos a los encabezados
     for celda in ws_reporte[1]:
@@ -67,7 +80,9 @@ def reporte_caracteristicas_asociadas():
 
     for row in ws_reporte.iter_rows(min_row=2):
         for celda in row:
-            celda.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+            celda.alignment = Alignment(
+                horizontal="center", vertical="center", wrap_text=True
+            )
             celda.border = thin_border
 
     # Ajustar ancho de columnas
@@ -75,23 +90,35 @@ def reporte_caracteristicas_asociadas():
         col_letter = get_column_letter(col[0].column)
         max_length = max((len(str(cell.value)) if cell.value else 0) for cell in col)
         ws_reporte.column_dimensions[col_letter].width = min(max_length + 2, 30)
-    
+
     crear_tabla(ws_reporte, type_table="TableStyleMedium2", table_name="TablaFactores")
 
     # Crear gráfico con los 10 valores más frecuentes en personas con trastornos
     datos_grafica = sorted(
-        [(f"{c}: {v}", conteo) for c, valores in conteo_factores.items() for v, conteo in valores.items()],
+        [
+            (f"{c}: {v}", conteo)
+            for c, valores in conteo_factores.items()
+            for v, conteo in valores.items()
+        ],
         key=lambda x: x[1],
-        reverse=True
+        reverse=True,
     )[:10]
 
     if datos_grafica:
         start_row = len(ws_reporte["A"]) + 2
-        ws_reporte.merge_cells(start_row=start_row, start_column=1, end_row=start_row, end_column=3)
-        celda_titulo = ws_reporte.cell(row=start_row, column=1, value="Top 10 Factores más Frecuentes en trastornos")
+        ws_reporte.merge_cells(
+            start_row=start_row, start_column=1, end_row=start_row, end_column=3
+        )
+        celda_titulo = ws_reporte.cell(
+            row=start_row,
+            column=1,
+            value="Top 10 Factores más Frecuentes en trastornos",
+        )
         celda_titulo.alignment = Alignment(horizontal="center", vertical="center")
         celda_titulo.font = Font(bold=True, size=14)
-        celda_titulo.fill = PatternFill(start_color="4F81BD", fill_type="solid", fgColor="4F81BD")
+        celda_titulo.fill = PatternFill(
+            start_color="4F81BD", fill_type="solid", fgColor="4F81BD"
+        )
         ws_reporte.append(["Factor", "Cantidad de personas con trastornos"])
         for nombre, cantidad in datos_grafica:
             ws_reporte.append([nombre, cantidad])
@@ -105,9 +132,13 @@ def reporte_caracteristicas_asociadas():
             celda.border = thin_border
 
         # Aplicar estilos al contenido del top 10
-        for row in ws_reporte.iter_rows(min_row=top10_header_row + 1, max_row=top10_header_row + len(datos_grafica)):
+        for row in ws_reporte.iter_rows(
+            min_row=top10_header_row + 1, max_row=top10_header_row + len(datos_grafica)
+        ):
             for celda in row:
-                celda.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+                celda.alignment = Alignment(
+                    horizontal="center", vertical="center", wrap_text=True
+                )
                 celda.border = thin_border
 
         # Grafico de barras para el top 10
@@ -118,8 +149,18 @@ def reporte_caracteristicas_asociadas():
         bar_chart.height = 10
         bar_chart.width = 30
 
-        data = Reference(ws_reporte, min_col=2, min_row=start_row + 1, max_row=start_row + len(datos_grafica) + 1)
-        categories = Reference(ws_reporte, min_col=1, min_row=start_row + 2, max_row=start_row + len(datos_grafica) + 1)
+        data = Reference(
+            ws_reporte,
+            min_col=2,
+            min_row=start_row + 1,
+            max_row=start_row + len(datos_grafica) + 1,
+        )
+        categories = Reference(
+            ws_reporte,
+            min_col=1,
+            min_row=start_row + 2,
+            max_row=start_row + len(datos_grafica) + 1,
+        )
         bar_chart.add_data(data, titles_from_data=True)
         bar_chart.set_categories(categories)
 
@@ -129,9 +170,19 @@ def reporte_caracteristicas_asociadas():
         pie_chart = PieChart()
         pie_chart.title = "Distribución de Factores Asociados a Trastornos"
 
-        # Referencias para los datos y categorías 
-        data_pie = Reference(ws_reporte, min_col=2, min_row=start_row + 1, max_row=start_row + len(datos_grafica) + 1)
-        categories_pie = Reference(ws_reporte, min_col=1, min_row=start_row + 2, max_row=start_row + len(datos_grafica) + 1)
+        # Referencias para los datos y categorías
+        data_pie = Reference(
+            ws_reporte,
+            min_col=2,
+            min_row=start_row + 1,
+            max_row=start_row + len(datos_grafica) + 1,
+        )
+        categories_pie = Reference(
+            ws_reporte,
+            min_col=1,
+            min_row=start_row + 2,
+            max_row=start_row + len(datos_grafica) + 1,
+        )
 
         # Agregar datos al gráfico
         pie_chart.add_data(data_pie, titles_from_data=True)
@@ -139,22 +190,23 @@ def reporte_caracteristicas_asociadas():
 
         # Etiquetas de porcentaje
         pie_chart.dataLabels = DataLabelList()
-        pie_chart.dataLabels.showPercent = True  
+        pie_chart.dataLabels.showPercent = True
 
-        # Tamaño opcional 
+        # Tamaño opcional
         pie_chart.height = 15
         pie_chart.width = 20
 
         ws_reporte.add_chart(pie_chart, "F21")
 
     # Guardar los cambios en el archivo Excel
-    output_path = "reporte_principal.xlsx"
+    output_path = filename
     try:
         wb.save(output_path)
         wb.close()
         print(f"Página caracteristicas más comunes guardada en: '{output_path}'")
     except Exception as e:
         print(f"Error al guardar el archivo: {e}")
+
 
 if __name__ == "__main__":
     reporte_caracteristicas_asociadas()

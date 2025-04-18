@@ -1,13 +1,16 @@
-from openpyxl.utils import get_column_letter
-from abrir_principal import cargar_principal  
-from form_tabla import crear_tabla  
 from collections import defaultdict
-from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
-from openpyxl.chart import BarChart, PieChart, Reference, Series, LineChart
-from openpyxl.chart.label import DataLabelList
 
-def reporte_distribucion_sexo_trastornos():
-    wb, ws = cargar_principal()
+from openpyxl.chart import BarChart, PieChart, Reference
+from openpyxl.chart.label import DataLabelList
+from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
+from openpyxl.utils import get_column_letter
+
+from abrir_principal import cargar_principal
+from form_tabla import crear_tabla
+
+
+def reporte_distribucion_sexo_trastornos(filename):
+    wb, ws = cargar_principal(filename)
     if not wb or not ws:
         print("Error: No se pudo cargar el archivo principal.")
         return
@@ -25,14 +28,18 @@ def reporte_distribucion_sexo_trastornos():
 
     # Estoy empezando a considerar pedir los trastornos como parametro, pero eso podria enredar el programa, lo dejare asi de momento
     # Obtener los encabezados de trastornos
-    encabezados_trastornos = [ws.cell(row=1, column=col).value for col in range(7, ws.max_column + 1) if ws.cell(row=1, column=col).value]
+    encabezados_trastornos = [
+        ws.cell(row=1, column=col).value
+        for col in range(7, ws.max_column + 1)
+        if ws.cell(row=1, column=col).value
+    ]
 
     for row in range(2, ws.max_row + 1):
         # Un try si se fue un dato que no sea int a la casilla
         try:
             dato = ws.cell(row=row, column=3).value
         except (TypeError, ValueError):
-            continue  
+            continue
 
         if dato == "Masculino":
             sexo = "Masculino"
@@ -46,10 +53,13 @@ def reporte_distribucion_sexo_trastornos():
         sexos_registrados[sexo] += 1
 
         for col, trastorno in enumerate(encabezados_trastornos, start=7):
-            if ws.cell(row=row, column=col).value and ws.cell(row=row, column=col).value.strip() == "Si":
+            if (
+                ws.cell(row=row, column=col).value
+                and ws.cell(row=row, column=col).value.strip() == "Si"
+            ):
                 conteo_trastornos_por_sexo[sexo][trastorno] += 1
 
-    #################### Tabla y grafico de distribucion de datoes  #################### 
+    #################### Tabla y grafico de distribucion de datoes  ####################
     # Encabezados
     ws_reporte.append(["Sexo", "Cantidad de Personas"] + encabezados_trastornos)
 
@@ -57,8 +67,12 @@ def reporte_distribucion_sexo_trastornos():
     header_font = Font(bold=True, color="FFFFFF")
     header_fill = PatternFill(start_color="4F81BD", fill_type="solid")
     header_alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
-    thin_border = Border(left=Side(style="medium"), right=Side(style="medium"),
-                         top=Side(style="medium"), bottom=Side(style="medium"))
+    thin_border = Border(
+        left=Side(style="medium"),
+        right=Side(style="medium"),
+        top=Side(style="medium"),
+        bottom=Side(style="medium"),
+    )
 
     # Aplicar estilos a los encabezados
     for celda in ws_reporte[1]:
@@ -69,12 +83,16 @@ def reporte_distribucion_sexo_trastornos():
 
     # Agregar datos de distribución de datoes y trastornos
     for row_num, (sexo, cantidad) in enumerate(sexos_registrados.items(), 2):
-        fila = [sexo, cantidad] + [conteo_trastornos_por_sexo[sexo][t] for t in encabezados_trastornos]
+        fila = [sexo, cantidad] + [
+            conteo_trastornos_por_sexo[sexo][t] for t in encabezados_trastornos
+        ]
         ws_reporte.append(fila)
 
         for col_num, dato in enumerate(fila, 1):
             celda = ws_reporte.cell(row=row_num, column=col_num, value=dato)
-            celda.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+            celda.alignment = Alignment(
+                horizontal="center", vertical="center", wrap_text=True
+            )
             celda.border = thin_border
 
     # Ajustar ancho de columnas
@@ -91,8 +109,12 @@ def reporte_distribucion_sexo_trastornos():
     bar_chart.width = 22
     bar_chart.height = 12
 
-    data = Reference(ws_reporte, min_col=2, min_row=1, max_row=len(sexos_registrados) + 1)
-    categories = Reference(ws_reporte, min_col=1, min_row=2, max_row=len(sexos_registrados) + 1)
+    data = Reference(
+        ws_reporte, min_col=2, min_row=1, max_row=len(sexos_registrados) + 1
+    )
+    categories = Reference(
+        ws_reporte, min_col=1, min_row=2, max_row=len(sexos_registrados) + 1
+    )
 
     bar_chart.add_data(data, titles_from_data=True)
     bar_chart.set_categories(categories)
@@ -109,15 +131,20 @@ def reporte_distribucion_sexo_trastornos():
     pie_chart.height = 12
     ws_reporte.add_chart(pie_chart, "B36")
 
-    #################### Tabla y grafico de promedio de aflicciones por edad  #################### 
+    #################### Tabla y grafico de promedio de aflicciones por edad  ####################
 
     # Cálculo de promedios
-    ws_reporte.append([""] * (len(encabezados_trastornos) + 2))  
-    
-    # Encabezados
-    ws_reporte.append(["Sexo", "Cantidad de Personas"] + [f"Promedio {t}" for t in encabezados_trastornos])
+    ws_reporte.append([""] * (len(encabezados_trastornos) + 2))
 
-    start_row_promedios = len(sexos_registrados) + 3  # Fila donde inician los datos de la segunda tabla
+    # Encabezados
+    ws_reporte.append(
+        ["Sexo", "Cantidad de Personas"]
+        + [f"Promedio {t}" for t in encabezados_trastornos]
+    )
+
+    start_row_promedios = (
+        len(sexos_registrados) + 3
+    )  # Fila donde inician los datos de la segunda tabla
 
     # Aplicar estilos a los encabezados, se aplican los mismos estilos que en la primera tabla
     for col in range(1, len(encabezados_trastornos) + 3):
@@ -128,9 +155,14 @@ def reporte_distribucion_sexo_trastornos():
         celda.border = thin_border
 
     # Llenar la tabla con los promedios y aplicar estilos basicos
-    for row_num, (rango, cantidad) in enumerate(sexos_registrados.items(), start_row_promedios + 1):
+    for row_num, (rango, cantidad) in enumerate(
+        sexos_registrados.items(), start_row_promedios + 1
+    ):
         if cantidad > 0:
-            fila_promedios = [rango, cantidad] + [round(conteo_trastornos_por_sexo[rango][t] / cantidad, 2) for t in encabezados_trastornos]
+            fila_promedios = [rango, cantidad] + [
+                round(conteo_trastornos_por_sexo[rango][t] / cantidad, 2)
+                for t in encabezados_trastornos
+            ]
         else:
             fila_promedios = [rango, cantidad] + [0] * len(encabezados_trastornos)
 
@@ -138,10 +170,16 @@ def reporte_distribucion_sexo_trastornos():
 
         for col_num, dato in enumerate(fila_promedios, 1):
             celda = ws_reporte.cell(row=row_num, column=col_num, value=dato)
-            celda.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+            celda.alignment = Alignment(
+                horizontal="center", vertical="center", wrap_text=True
+            )
             celda.border = thin_border
 
-    crear_tabla(ws_reporte, type_table="TableStyleMedium2", table_name="TablaPromediosTrastornosPorSexo")
+    crear_tabla(
+        ws_reporte,
+        type_table="TableStyleMedium2",
+        table_name="TablaPromediosTrastornosPorSexo",
+    )
 
     # Gráfico de Barras Apiladas - Promedio de Trastornos por Sexo
     bar_chart = BarChart()
@@ -152,18 +190,18 @@ def reporte_distribucion_sexo_trastornos():
     bar_chart.width = 40
 
     data = Reference(
-        ws_reporte, 
-        min_col=3, 
-        min_row=len(sexos_registrados) + 3, 
-        max_row=len(sexos_registrados) + 9, 
-        max_col=len(encabezados_trastornos) + 2
+        ws_reporte,
+        min_col=3,
+        min_row=len(sexos_registrados) + 3,
+        max_row=len(sexos_registrados) + 9,
+        max_col=len(encabezados_trastornos) + 2,
     )
 
     categories = Reference(
-        ws_reporte, 
-        min_col=1, 
-        min_row=len(sexos_registrados) + 4, 
-        max_row=len(sexos_registrados) + 9
+        ws_reporte,
+        min_col=1,
+        min_row=len(sexos_registrados) + 4,
+        max_row=len(sexos_registrados) + 9,
     )
 
     # Agregar los datos al grafico de barras
@@ -190,14 +228,14 @@ def reporte_distribucion_sexo_trastornos():
         min_col=3,
         min_row=len(sexos_registrados) + 3,
         max_row=len(sexos_registrados) + 6,
-        max_col=len(encabezados_trastornos) + 2
+        max_col=len(encabezados_trastornos) + 2,
     )
 
     categories = Reference(
         ws_reporte,
         min_col=1,
         min_row=len(sexos_registrados) + 4,
-        max_row=len(sexos_registrados) + 6
+        max_row=len(sexos_registrados) + 6,
     )
 
     radar_chart.add_data(data, titles_from_data=True)
@@ -206,15 +244,15 @@ def reporte_distribucion_sexo_trastornos():
     # Agregar la gráfica de radar al reporte
     ws_reporte.add_chart(radar_chart, "O12")
 
-
     # Guardar archivo
-    output_path = "reporte_principal.xlsx"
+    output_path = filename
     try:
         wb.save(output_path)
         wb.close()
         print(f"Distribucion sexo - trastorno guardado en: '{output_path}'")
     except Exception as e:
         print(f"Error al guardar el archivo: {e}")
+
 
 if __name__ == "__main__":
     reporte_distribucion_sexo_trastornos()
