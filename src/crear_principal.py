@@ -25,7 +25,7 @@ def calcular_edad(fecha_nacimiento):
 # No se incluyeron las respuestas de cada pregunta.
 # La tabla generado aqui se utilizara para generar el resto de reportes, para no tener que estar
 # llamando a la base de datos en cada reporte.
-def crear_tabla_principal(data):
+def crear_tabla_principal(data, filename):
     # Obtener los datos de cadda relevantes
     lineas = []
     for persona in data:
@@ -158,7 +158,11 @@ def crear_tabla_principal(data):
             )  # En caso de no haber dato se rellena con un vacio
 
         # Contar cantidad de trastornos del entrevistado actual
-        cantidad_si = sum(1 for i in indice_trastornos if i - 1 < len(fila) and fila[i - 1].strip().lower() == "si")
+        cantidad_si = sum(
+            1
+            for i in indice_trastornos
+            if i - 1 < len(fila) and fila[i - 1].strip().lower() == "si"
+        )
         # Definir color en función para darle al usuario en funcion de la cantidad de trastornos que padece
         if cantidad_si > 0:
             rojo = 255
@@ -174,14 +178,16 @@ def crear_tabla_principal(data):
 
         for col_num, dato in enumerate(fila, 1):
             celda = ws.cell(row=row_num, column=col_num, value=dato)
-            celda.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+            celda.alignment = Alignment(
+                horizontal="center", vertical="center", wrap_text=True
+            )
             celda.border = thin_border
             # Aplicar color de acuerdo a la cantidad de trastornos al nombre del entrevistado
             if fill_color and col_num == 1:
                 celda.fill = fill_color
             # Se pintan de amarillos los "Si", para identificar más facilmente los trastornos padecidos
             if dato == "Si":
-                celda.fill = PatternFill(start_color="FFD700", fill_type="solid") 
+                celda.fill = PatternFill(start_color="FFD700", fill_type="solid")
             if dato == "Bajo":
                 celda.fill = PatternFill(start_color="FFD700", fill_type="solid")
             if dato == "Moderado":
@@ -210,7 +216,7 @@ def crear_tabla_principal(data):
     # Aplicar formato de tabla
     crear_tabla(ws, type_table="TableStyleLight11", table_name="Tabla_general")
     # Guardar el archivo Excel
-    output_path = "reporte_principal.xlsx"
+    output_path = filename
     try:
         wb.save(output_path)
         wb.close()
