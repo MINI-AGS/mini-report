@@ -1,31 +1,31 @@
 import os
+import sys
 
-import firebase_admin
-from firebase_admin import credentials, firestore
-
-cwd = os.getcwd()
-cred = credentials.Certificate(cwd + "/src/firebase-admin-sdk.json")
-app = firebase_admin.initialize_app(cred)
-db = firestore.client()
-
-print("Firebase Admin SDK initialized!")
-print(app)
-
-print("Testing uploading a document to Firestore...")
-doc_ref = db.collection("ejemplos2").document("alovelace")
-doc_ref.set({"first": "Ada", "last": "Lovelace", "born": 1815})
-
-print("Document uploaded successfully!")
-
-print("Testing reading a document from Firestore...")
-doc = doc_ref.get()
-print("Document data: {}".format(doc.to_dict()))
-
-print("Document read successfully!")
-
-print("Testing deleting a document from Firestore...")
-doc_ref.delete()
-print("Document deleted successfully!")
+import descargar_reporte
+from crear_principal import crear_tabla_principal
+from distribucion_trastornos import reporte_distribucion_trastornos
+from edad_trastorno import reporte_distribucion_edades_trastornos
+from estado_origen_trastorno import reporte_distribucion_estado_origen_trastorno
+from estado_residencia_trastorno import reporte_distribucion_estado_residencia_trastorno
+from factores_en_trastornos import reporte_caracteristicas_asociadas
+from get_data import get_firebase_data
+from sexo_trastorno import reporte_distribucion_sexo_trastornos
 
 
-print("Happy coding!")
+def resource_path(relative_path):
+    """Get absolute path to resource (for PyInstaller)"""
+    base_path = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
+
+
+if __name__ == "__main__":
+    path = resource_path("firebase-admin-sdk.json")
+    data = get_firebase_data(path)
+    crear_tabla_principal(data)
+    reporte_distribucion_edades_trastornos()
+    reporte_distribucion_sexo_trastornos()
+    reporte_distribucion_estado_origen_trastorno()
+    reporte_distribucion_estado_residencia_trastorno()
+    reporte_distribucion_trastornos()
+    reporte_caracteristicas_asociadas()
+    descargar_reporte.auto_download_file()

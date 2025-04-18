@@ -1,13 +1,22 @@
-# Repository for the report generation
+# Report Generator for the MINI test project
 
-## Introduction
+## How to build the project
 
-Some introduction about the repository
+The build of the project is done using the `pyinstaller` package. Note that before building the project, you need to have the virtual environment activated and the required packages installed.
 
-## Tech Stack
+The build is done using the following command depending on the operating system:
 
-The tech stack used in the repository is as follows:
-...
+1. For Windows
+
+```bash
+pyinstaller src/main.py --onefile --name mini_report `--add-data="src/firebase-admin-sdk.json;." ` --hidden-import=openpyxl
+````
+
+2. For Linux
+
+```bash
+pyinstaller src/main.py --onefile --name mini_report --add-data=src/firebase-admin-sdk.json:.
+```
 
 ## How to contribute
 
