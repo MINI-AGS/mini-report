@@ -19,9 +19,9 @@ def reporte_distribucion_sexo_trastornos(filename):
 
     # Definir sexos de dato
     sexos_registrados = {
-        "Masculino": 0,
-        "Femenino": 0,
-        "No binario": 0,
+        "Hombre": 0,
+        "Mujer": 0,
+        "Otro": 0,
     }
 
     conteo_trastornos_por_sexo = defaultdict(lambda: defaultdict(int))
@@ -41,14 +41,14 @@ def reporte_distribucion_sexo_trastornos(filename):
         except (TypeError, ValueError):
             continue
 
-        if dato == "Masculino":
-            sexo = "Masculino"
+        if dato == "Hombre":
+            sexo = "Hombre"
 
-        elif dato == "Femenino":
-            sexo = "Femenino"
+        elif dato == "Mujer":
+            sexo = "Mujer"
 
         else:
-            sexo = "No binario"
+            sexo = "Otro"
 
         sexos_registrados[sexo] += 1
 
@@ -183,7 +183,7 @@ def reporte_distribucion_sexo_trastornos(filename):
 
     # Gráfico de Barras Apiladas - Promedio de Trastornos por Sexo
     bar_chart = BarChart()
-    bar_chart.title = "Promedio de trastornos por Sexoes"
+    bar_chart.title = "Promedio de trastornos por Sexos"
     bar_chart.y_axis.title = "Promedio de personas que padecen"
     bar_chart.x_axis.title = "Sexo"
     bar_chart.height = 30

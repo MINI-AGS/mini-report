@@ -29,6 +29,128 @@ def calcular_edad(fecha_nacimiento):
     return edad
 
 
+from typing import Dict
+
+# 1. Diccionario de mapeo: claves en minúsculas (abreviaciones y nombres completos)
+_STATE_MAP: Dict[str, str] = {
+    # Aguascalientes
+    "ags": "Aguascalientes",
+    "agua": "Aguascalientes",
+    "aguascalientes": "Aguascalientes",
+    # Baja California
+    "bc": "Baja California",
+    "baja california": "Baja California",
+    "bcn": "Baja California",
+    # Baja California Sur
+    "bcs": "Baja California Sur",
+    "baja california sur": "Baja California Sur",
+    # Campeche
+    "camp": "Campeche",
+    "campeche": "Campeche",
+    # Coahuila
+    "coah": "Coahuila de Zaragoza",
+    "coahuila": "Coahuila de Zaragoza",
+    # Colima
+    "col": "Colima",
+    "colima": "Colima",
+    # Chiapas
+    "chis": "Chiapas",
+    "chiapas": "Chiapas",
+    # Chihuahua
+    "chih": "Chihuahua",
+    "chihuahua": "Chihuahua",
+    # Ciudad de México
+    "cdmx": "Ciudad de México",
+    "ciudad de méxico": "Ciudad de México",
+    # Durango
+    "dur": "Durango",
+    "durango": "Durango",
+    # Guanajuato
+    "gto": "Guanajuato",
+    "guanajuato": "Guanajuato",
+    # Guerrero
+    "gro": "Guerrero",
+    "guerrero": "Guerrero",
+    # Hidalgo
+    "hgo": "Hidalgo",
+    "hidalgo": "Hidalgo",
+    # Jalisco
+    "jal": "Jalisco",
+    "jalisco": "Jalisco",
+    # México (Estado de México)
+    "em": "Estado de México",
+    "mex": "Estado de México",
+    "estado de méxico": "Estado de México",
+    # Michoacán
+    "mich": "Michoacán",
+    "michoacán": "Michoacán",
+    # Morelos
+    "mor": "Morelos",
+    "morelos": "Morelos",
+    # Nayarit
+    "nay": "Nayarit",
+    "nayarit": "Nayarit",
+    # Nuevo León
+    "nl": "Nuevo León",
+    "nuevo león": "Nuevo León",
+    # Oaxaca
+    "oax": "Oaxaca",
+    "oaxaca": "Oaxaca",
+    # Puebla
+    "pue": "Puebla",
+    "puebla": "Puebla",
+    # Querétaro
+    "qro": "Querétaro",
+    "querétaro": "Querétaro",
+    # Quintana Roo
+    "qroo": "Quintana Roo",
+    "quintana roo": "Quintana Roo",
+    # San Luis Potosí
+    "slp": "San Luis Potosí",
+    "san luis potosí": "San Luis Potosí",
+    # Sinaloa
+    "sin": "Sinaloa",
+    "sinaloa": "Sinaloa",
+    # Sonora
+    "son": "Sonora",
+    "sonora": "Sonora",
+    # Tabasco
+    "tab": "Tabasco",
+    "tabasco": "Tabasco",
+    # Tamaulipas
+    "tamps": "Tamaulipas",
+    "tamaulipas": "Tamaulipas",
+    # Tlaxcala
+    "tlax": "Tlaxcala",
+    "tlaxcala": "Tlaxcala",
+    # Veracruz
+    "ver": "Veracruz de Ignacio de la Llave",
+    "veracruz": "Veracruz de Ignacio de la Llave",
+    # Yucatán
+    "yuc": "Yucatán",
+    "yucatán": "Yucatán",
+    # Zacatecas
+    "zac": "Zacatecas",
+    "zacatecas": "Zacatecas",
+}
+
+
+def normalize_state(input_str: str) -> str:
+    """
+    Convierte una cadena que representa un estado de México
+    a su forma canónica con mayúscula inicial y acentos correctos.
+
+    Parámetros:
+        input_str (str): Abreviatura o nombre completo en cualquier formato de mayúsculas/minúsculas.
+
+    Retorna:
+        str: Nombre del estado normalizado. Si no coincide con ninguna clave del mapeo,
+            se devuelve una cadena vacía.
+    """
+    key = input_str.strip().lower()
+    return _STATE_MAP.get(key, "")
+
+
 # Crear la tabla principal, donde se muestran los resultados de la encuesta y sus datos relevantes.
 # No se incluyeron las respuestas de cada pregunta.
 # La tabla generado aqui se utilizara para generar el resto de reportes, para no tener que estar
@@ -42,13 +164,16 @@ def crear_tabla_principal(data, filename):
             edad = calcular_edad(fecha_nacimiento) if fecha_nacimiento else ""
         except ValueError:
             edad = ""
+        # Normalizar estado de origen y residencia
+        estado_origen = normalize_state(persona.get("stateOrigin", "") or "-")
+        estado_residencia = normalize_state(persona.get("stateResidence", "") or "-")
         fila = [
             persona.get("name", ""),
             edad,
             persona.get("gender", ""),
             persona.get("sexualPreference", ""),
-            persona.get("stateOrigin", ""),
-            persona.get("stateResidence", ""),
+            estado_origen,
+            estado_residencia,
             persona.get("diagnosticA1", ""),
             persona.get("diagnosticA2", ""),
             persona.get("diagnosticA3", ""),
