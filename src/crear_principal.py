@@ -148,7 +148,9 @@ def normalize_state(input_str: str) -> str:
             se devuelve una cadena vacía.
     """
     key = input_str.strip().lower()
-    return _STATE_MAP.get(key, "")
+    return _STATE_MAP.get(
+        key, "Sin datos"
+    )  # Devuelve "Sin datos" si no se encuentra el estado
 
 
 # Crear la tabla principal, donde se muestran los resultados de la encuesta y sus datos relevantes.
