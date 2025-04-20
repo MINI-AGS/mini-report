@@ -12,6 +12,14 @@ def calcular_edad(fecha_nacimiento):
         return ""
     hoy = datetime.today()
 
+    # check if fecha_nacimiento is exactly Jan, 1, 1900, if so, return empty string
+    if (
+        fecha_nacimiento.year == 1900
+        and fecha_nacimiento.month == 1
+        and fecha_nacimiento.day == 1
+    ):
+        return ""
+
     edad = (
         hoy.year
         - fecha_nacimiento.year
